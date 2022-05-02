@@ -13,7 +13,7 @@ npm install openlogger-node
 ### Coding part thing
 
 ```javascript
-import openlogger from "openlogger";
+import openlogger from "openlogger-node";
 import chalk from "chalk"; // for colors
 
 const log = new openlogger("Test", chalk.blue); // if you do not want a color, don't worry about the second argument
