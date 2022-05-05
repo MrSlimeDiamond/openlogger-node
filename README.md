@@ -13,22 +13,17 @@ npm install openlogger-node
 ### Coding part thing
 
 ```javascript
-import openlogger from "openlogger-node";
-import chalk from "chalk"; // for colors
+import openlogger from 'openlogger-node'
+import chalk from 'chalk'
+const log = new openlogger('Test', chalk.green, { // you can just make color null if you want it to be white
+    format: '[%n/%t]: %i',
+    debugLevel: 0,
+})
 
-const log = new openlogger("Test", chalk.blue); // if you do not want a color, don't worry about the second argument
-log.setFormat("%n %t > %i");
-log.setDebugLevel(1) // optional, debug level must be at least 1 to see debug messages
-
-log.info("Hello world!");
-log.warn("oh no!");
-log.error("something very bad");
-log.fatal("something more bad than very bad");
-log.debug("testy test")
-log.debug("another testy test", 2) // second argument is the minumum debug level for the message to be printed
+log.info('hello world')
 ```
 
-> warn, error, and fatal do not need colors
+> warn, error, and fatal will ignore colors, the color argument is for info
 
 %n - Name
 
