@@ -1,19 +1,22 @@
 import chalk from "chalk";
+
 class OpenLogger {
   constructor(name, color) {
     this.name = name;
     this.color = color;
     this.format = null;
     this.type = null;
+    this.debug_level = 0;
+
+    if (!this.name) {
+      throw new Error("Logger must have a name");
+    }
   }
 
   info(input) {
     this.type = "INFO";
     if (!this.color) {
       this.color = chalk.white;
-    }
-    if (!this.name) {
-      throw new Error("Logger must have a name");
     }
     console.log(
       this.color(
@@ -27,9 +30,6 @@ class OpenLogger {
 
   warn(input) {
     this.type = "WARN";
-    if (!this.name) {
-      throw new Error("Logger must have a name");
-    }
     console.log(
       chalk.yellow(
         this.format
@@ -42,9 +42,6 @@ class OpenLogger {
 
   error(input) {
     this.type = "ERROR";
-    if (!this.name) {
-      throw new Error("Logger must have a name");
-    }
     console.log(
       chalk.redBright(
         this.format
@@ -57,9 +54,6 @@ class OpenLogger {
 
   fatal(input) {
     this.type = "FATAL";
-    if (!this.name) {
-      throw new Error("Logger must have a name");
-    }
     console.log(
       chalk.red(
         this.format
@@ -70,8 +64,27 @@ class OpenLogger {
     );
   }
 
+  debug(input, level) {
+    if (!level) level = 1;
+    if (this.debug_level >= 1 && this.debug_level >= level) {
+      this.type = "DEBUG";
+      console.log(
+        chalk.blue(
+          this.format
+            .replaceAll("%n", this.name)
+            .replaceAll("%i", input)
+            .replaceAll("%t", this.type)
+        )
+      );
+    }
+  }
+
   setFormat(format) {
     this.format = format;
+  }
+
+  setDebugLevel(level) {
+    this.debug_level = level;
   }
 }
 
