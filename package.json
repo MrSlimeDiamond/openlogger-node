@@ -1,6 +1,6 @@
 {
     "name": "openlogger-node",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Simple logger for node.js",
     "main": "index.js",
     "type": "module",
