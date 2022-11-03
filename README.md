@@ -16,7 +16,7 @@ npm install openlogger-node
 import openlogger from 'openlogger-node'
 import chalk from 'chalk'
 const log = new openlogger('Test', chalk.green, { // you can just make color null if you want it to be white
-    format: '[%n/%t]: %i',
+    format: '[%n/%l]: %m',
     debugLevel: 0,
 })
 
@@ -27,6 +27,6 @@ log.info('hello world')
 
 %n - Name
 
-%i - Input
+%m - Input
 
-%t - Type (info, warn, error, fatal)
+%l - Level (info, warn, error, fatal)

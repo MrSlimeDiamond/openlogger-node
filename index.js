@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 
-const defaultFormat = '%n > %t > %i'
+const defaultFormat = '%n > %l > %m'
 class OpenLogger {
     constructor(
         name,
@@ -14,7 +14,7 @@ class OpenLogger {
         this.color = color
         this.format = options.format || defaultFormat
         this.options = options
-        this.type = null
+        this.level = null
         this.debug_level = options.debugLevel || 0
 
         if (!this.name) {
@@ -22,8 +22,8 @@ class OpenLogger {
         }
     }
 
-    info(input) {
-        this.type = 'INFO'
+    info(message) {
+        this.level = 'INFO'
         if (!this.color) {
             this.color = chalk.white
         }
@@ -31,58 +31,58 @@ class OpenLogger {
             this.color(
                 this.format
                     .replaceAll('%n', this.name)
-                    .replaceAll('%i', input)
-                    .replaceAll('%t', this.type)
+                    .replaceAll('%m', message)
+                    .replaceAll('%l', this.level)
             )
         )
     }
 
-    warn(input) {
-        this.type = 'WARN'
+    warn(message) {
+        this.level = 'WARN'
         console.log(
             chalk.yellow(
                 this.format
                     .replaceAll('%n', this.name)
-                    .replaceAll('%i', input)
-                    .replaceAll('%t', this.type)
+                    .replaceAll('%m', message)
+                    .replaceAll('%l', this.level)
             )
         )
     }
 
-    error(input) {
-        this.type = 'ERROR'
+    error(message) {
+        this.level = 'ERROR'
         console.log(
             chalk.redBright(
                 this.format
                     .replaceAll('%n', this.name)
-                    .replaceAll('%i', input)
-                    .replaceAll('%t', this.type)
+                    .replaceAll('%m', message)
+                    .replaceAll('%l', this.level)
             )
         )
     }
 
-    fatal(input) {
-        this.type = 'FATAL'
+    fatal(message) {
+        this.level = 'FATAL'
         console.log(
             chalk.red(
                 this.format
                     .replaceAll('%n', this.name)
-                    .replaceAll('%i', input)
-                    .replaceAll('%t', this.type)
+                    .replaceAll('%m', message)
+                    .replaceAll('%l', this.level)
             )
         )
     }
 
-    debug(input, level) {
+    debug(message, level) {
         if (!level) level = 1
         if (this.debug_level >= 1 && this.debug_level >= level) {
-            this.type = 'DEBUG'
+            this.level = 'DEBUG'
             console.log(
                 chalk.blue(
                     this.format
                         .replaceAll('%n', this.name)
-                        .replaceAll('%i', input)
-                        .replaceAll('%t', this.type)
+                        .replaceAll('%m', message)
+                        .replaceAll('%l', this.level)
                 )
             )
         }

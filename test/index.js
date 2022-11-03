@@ -1,7 +1,7 @@
 import openlogger from '../index.js'
 import chalk from 'chalk'
 const log = new openlogger('Test', chalk.green, {
-    format: '[%n/%t]: %i',
+    format: '[%n/%l]: %m',
     debugLevel: 2,
 })
 
